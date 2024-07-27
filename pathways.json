@@ -1,44 +1,44 @@
 [
   {
-    "next": "Is this {{13.`1`}}?Hi {{13.`1`}}, this is Sam. Look, I just finished doing some research around {{13.`7`}}, and I'm calling totally out of the blue. Mind if I take ten seconds? I'll tell you why I called you specifically, and then you can tell me if it's worth a chat or not?"
+    "next": "Say: Is this {{13.`1`}}"
   },
   {
-    "next": "Hi, this is Sam. Look, I just finished doing some research around {{13.`7`}}, and I'm calling totally out of the blue. Mind if I take ten seconds? I'll tell you why I called you specifically, and then you can tell me if it's worth a chat or not?"
+    "next": "Say: Hi, this is Sam. Look, I just finished doing some research around {{13.`7`}}, and I'm calling totally out of the blue. Mind if I take ten seconds? I'll tell you why I called you specifically, and then you can tell me if it's worth a chat or not?"
   },
   {
     "check": "Return yes if the user agrees to continue the conversation, otherwise no",
     "error": "Create a casual response and ask again if the user has ten seconds to spare.",
-    "next": "Great! So I hope it surprises you {{13.`1`}}, that I'm actually an AI sales agent. But we wanted to show you in real-time, how possible it is to optimize and automate any sales process. Is it fine if I share some insights with you?"
+    "next": "Say: Great! So I hope it surprises you {{13.`1`}}, that I'm actually an AI sales agent. But we wanted to show you in real-time, how possible it is to optimize and automate any sales process. Is it fine if I share some insights with you?"
   },
   {
     "check": "Return yes if the user agrees to hear insights, otherwise say no",
     "error": "Create a casual response and ask for permission again to share some insights.",
-    "next": "Awesome, {{13.`1`}}. So, after working with some key players in the game, we decided to make our AI sales solutions available for a selected few businesses. This call is just the tip of the iceberg. But, we offer two key solutions: outbound and inbound sales agents. In terms of outbound, our AI sales agents handle automated cold outreach, qualify leads, schedule appointments, and follow up as well. For inbound operations, we build AI agents for customer service, appointment booking, virtual assistance, and much more. These agents can manage unlimited complex inquiries and tasks, at better rates and lower costs compared to an actual person. Now, which one of the proposed applications seems to interest you more?"
+    "next": "Say: Awesome, {{13.`1`}}. So, after working with some key players in the game, we decided to make our AI sales solutions available for a selected few businesses. This call is just the tip of the iceberg. But, we offer two key solutions: outbound and inbound sales agents. In terms of outbound, our AI sales agents handle automated cold outreach, qualify leads, schedule appointments, and follow up as well. For inbound operations, we build AI agents for customer service, appointment booking, virtual assistance, and much more. These agents can manage unlimited complex inquiries and tasks, at better rates and lower costs compared to an actual person. Now, which one of the proposed applications seems to interest you more?"
   },
   {
     "check": "Return yes if the user expresses interest in either outbound or inbound solutions, otherwise say no",
     "error": "Create a casual response and ask which of the outbound or inbound solutions interests them more.",
-    "next": "Got it. Now before we schedule a detailed discussion, I need to ask a couple of quick questions to better position ourselves in terms of the added value. Just approximately, what could be your budget for this potential partnership?"
+    "next": "Say: Got it. Now before we schedule a detailed discussion, I need to ask a couple of quick questions to better position ourselves in terms of the added value. Just approximately, what could be your budget for this potential partnership?"
   },
   {
     "check": "Return yes if the user provides a budget, otherwise say no",
     "error": "Create a casual response and ask the user for their approximate budget again.",
-    "next": "Makes sense. And let's assume everything goes as planned, in terms of timeline, when would you like to get things set up?"
+    "next": "Say: Makes sense. And let's assume everything goes as planned, in terms of timeline, when would you like to get things set up?"
   },
   {
     "check": "Return yes if the user provides a timeline, otherwise say no",
     "error": "Create a casual response and ask the user for their expected timeline again.",
-    "next": "Alright, {{13.`1`}}, it sounds like our solutions could be of great value to {{13.`7`}}. I'd love to set you up with a complimentary consultation with one of our senior experts. What's your timezone, and what time in the next couple of days works best for you?"
+    "next": "Say: Alright, {{13.`1`}}, it sounds like our solutions could be of great value to {{13.`7`}}. I'd love to set you up with a complimentary consultation with one of our senior experts. What's your timezone, and what time in the next couple of days works best for you?"
   },
   {
-    "next": "Give me a sec, let me check for you."
+    "next": "Say: Give me a sec, let me check for you."
   },
   {
-    "next": "We're good to go! Now, is there anything else you’d like to know or any concerns you want to address before we wrap up?"
+    "next": "Say: We're good to go! Now, is there anything else you’d like to know or any concerns you want to address before we wrap up?"
   },
   {
     "check": "Return yes if the user asks a question, otherwise say no",
-    "error": "Listen, thank you again for taking the time, {{13.`1`}}! Looking forward to sharing how {{13.`7`}} prospered through having us as a partner. You may hang up now. Have a wonderful day!",
+    "error": "Say: Listen, thank you again for taking the time, {{13.`1`}}! Looking forward to sharing how {{13.`7`}} prospered through having us as a partner. You may hang up now. Have a wonderful day!",
     "next": "answer the question accordingly"
   }
 ]

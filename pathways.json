@@ -37,8 +37,8 @@
     "next": "We're good to go! Now, is there anything else you’d like to know or any concerns you want to address before we wrap up?"
   },
   {
-    "check": "Return yes if the user provides a budget, otherwise say no",
+    "check": "Return yes if the user asks a question, otherwise say no",
     "error": "Listen, thank you again for taking the time, {{13.`1`}}! Looking forward to sharing how {{13.`7`}} prospered through having us as a partner. You may hang up now. Have a wonderful day!",
-    "next": "Stay Safe!"
-  },
+    "next": "answer the question accordingly"
+  }
 ]

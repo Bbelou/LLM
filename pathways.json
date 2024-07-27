@@ -3,6 +3,8 @@
     "next": "Say: Is this {{13.`1`}}"
   },
   {
+    "check": "Return yes if the user confirms or asks any questions, otherwise no",
+    "error": "Create a casual response and ask how you can reach the correct person",
     "next": "Say: Hi, this is Sam. Look, I just finished doing some research around {{13.`7`}}, and I'm calling totally out of the blue. Mind if I take ten seconds? I'll tell you why I called you specifically, and then you can tell me if it's worth a chat or not?"
   },
   {

@@ -127,8 +127,8 @@ def openai_advanced_custom_llm_route():
 
     del request_data['call']
     del request_data['metadata']
-    del request_data['phoneNumber']  # set with phone numbers
-    del request_data['customer']  # set with phone numbers
+   # del request_data['phoneNumber']  # set with phone numbers
+   # del request_data['customer']  # set with phone numbers
 
     if streaming:
         chat_completion_stream = client.chat.completions.create(**request_data)

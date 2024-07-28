@@ -25,7 +25,6 @@ if not os.path.exists(PROMPT_INDEX_FILE):
 with open(PATHWAYS_MESSAGES_FILE, 'r') as f:
     prompt_messages = json.load(f)
 
-
 def get_prompt_index(call_id, increment=True):
     with open(PROMPT_INDEX_FILE, 'r') as f:
         indices = json.load(f)
@@ -40,20 +39,17 @@ def get_prompt_index(call_id, increment=True):
 
     return index
 
-
 def generate_streaming_response(data):
     """
-  Generator function to simulate streaming data.
-  """
+    Generator function to simulate streaming data.
+    """
     for message in data:
         json_data = message.model_dump_json()
         yield f"data: {json_data}\n\n"
 
-
 @custom_llm.route('/chat/completions', methods=['POST'])
 def openai_advanced_custom_llm_route():
     request_data = request.get_json()
-    # logger.info(f"Request data: {json.dumps(request_data, indent=2)}")
     streaming = request_data.get('stream', False)
     next_prompt = ''
 
@@ -67,12 +63,27 @@ def openai_advanced_custom_llm_route():
     last_message = request_data['messages'][-1]
     pathway_prompt = prompt_messages[prompt_index]
 
-    if 'check' in pathway_prompt and pathway_prompt['check']:
+    # Extract customer data
+    customer_data = request_data.get('customer', {})
+    customer_name = customer_data.get('name', '')
+    customer_number = customer_data.get('number', '')
+    company_name = request_data.get('company_name', '')
+    industry = request_data.get('industry', '')
+    email = request_data.get('email', '')
+    website = request_data.get('website', '')
 
+    # Replace variables in the pathway prompt
+    next_prompt = pathway_prompt['next'].replace('{{13.`1`}}', customer_name)\
+                                        .replace('{{13.`4`}}', email)\
+                                        .replace('{{13.`7`}}', company_name)\
+                                        .replace('{{13.`8`}}', industry)\
+                                        .replace('{{13.`9`}}', website)
+
+    if 'check' in pathway_prompt and pathway_prompt['check']:
         prompt = f"""
         You're an AI classifier. Your goal is to classify the following condition/instructions based on the last user message. If the condition is met, you only answer with a lowercase 'yes', and if it was not met, you answer with a lowercase 'no' (No Markdown or punctuation).
         ----------
-        Conditions/Intructions: {pathway_prompt['check']}"""
+        Conditions/Instructions: {pathway_prompt['check']}"""
 
         if last_assistant_message:
             prompt_completion_messages = [{
@@ -103,15 +114,11 @@ def openai_advanced_custom_llm_route():
             temperature=0.7)
 
         if (completion.choices[0].message.content == 'yes'):
-            # count state
             prompt_index = get_prompt_index(call_id)
-
             next_prompt = pathway_prompt['next']
         else:
             next_prompt = pathway_prompt['error']
-
     else:
-        # count state
         prompt_index = get_prompt_index(call_id)
         next_prompt = pathway_prompt['next']
 
@@ -127,8 +134,8 @@ def openai_advanced_custom_llm_route():
 
     del request_data['call']
     del request_data['metadata']
-    del request_data['phoneNumber']  # set with phone numbers
-    del request_data['customer']  # set with phone numbers
+    del request_data['phoneNumber']
+    del request_data['customer']
 
     if streaming:
         chat_completion_stream = client.chat.completions.create(**request_data)
@@ -136,11 +143,9 @@ def openai_advanced_custom_llm_route():
         return Response(generate_streaming_response(chat_completion_stream),
                         content_type='text/event-stream')
     else:
-        # Simulate a non-streaming response
         chat_completion = client.chat.completions.create(**request_data)
         return Response(chat_completion.model_dump_json(),
                         content_type='application/json')
-
 
 app.register_blueprint(custom_llm)
 

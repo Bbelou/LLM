@@ -1,56 +1,56 @@
 [
   {
     "id": 0,
-    "next": "Say: Is this {{13.`1`}}?"
+    "next": "Say: Hi {{13.1}}, this is Sam. Look, I just finished doing some research around {{13.7}}, and I'm calling totally out of the blue. Mind if I take ten seconds? I'll tell you why I called you specifically, and then you can tell me if it's worth a chat or not?"
   },
   {
     "id": 1,
-    "check": "Return yes if the user confirms their identity, otherwise no",
-    "error": "I'm here to help! If I've got the wrong number, can you let me know who I should reach?",
-    "next": "Say: Hi {{13.`1`}}, this is Sam! I just finished doing some research around {{13.`7`}}. Mind if I take ten seconds to explain why I called?"
+    "check": "Return yes if the user agrees to continue the conversation, otherwise no",
+    "error": "Create a casual response and ask again if the user has ten seconds to spare.",
+    "next": "Say: Great! So I hope it surprises you {{13.1}}, that I'm actually an AI sales agent. But we wanted to show you in real-time, how possible it is to optimize and automate any sales process. Is it fine if I share some insights with you?"
   },
   {
     "id": 2,
-    "check": "Return yes if the user is interested in hearing more, otherwise no",
-    "error": "I'm happy to answer any questions you have! Do you have a few moments to talk?",
-    "next": "Say: It's exciting to share that I'm actually an AI sales agent. We help optimize and automate sales processes. Can I share some insights?"
+    "check": "Return yes if the user agrees to hear insights, otherwise say no",
+    "error": "Create a casual response and ask for permission again to share some insights.",
+    "next": "Say: Awesome, {{13.1}}. So, after working with some key players in the game, we decided to make our AI sales solutions available for a selected few businesses. This call is just the tip of the iceberg. But, we offer two key solutions: outbound and inbound sales agents. In terms of outbound, our AI sales agents handle automated cold outreach, qualify leads, schedule appointments, and follow up as well. For inbound operations, we build AI agents for customer service, appointment booking, virtual assistance, and much more. These agents can manage unlimited complex inquiries and tasks, at better rates and lower costs compared to an actual person. Now, which one of the proposed applications seems to interest you more?"
   },
   {
     "id": 3,
-    "check": "Return yes if the user wants insights shared, otherwise no",
-    "error": "I'm just trying to help! Can I quickly outline how we assist businesses like yours?",
-    "next": "Say: Great! We have solutions for both outbound and inbound sales. Which one seems more interesting to you?"
+    "check": "Return yes if the user expresses interest in either outbound or inbound solutions, otherwise say no",
+    "error": "Create a casual response and ask which of the outbound or inbound solutions interests them more.",
+    "next": "Say: Got it. Now before we schedule a detailed discussion, I need to ask a couple of quick questions to better position ourselves in terms of the added value. Just approximately, what could be your budget for this potential partnership?"
   },
   {
     "id": 4,
-    "check": "Return yes if the user expresses interest in either outbound or inbound solutions, otherwise no",
-    "error": "Could you tell me which solution interests you more? Outbound or inbound?",
-    "next": "Say: Got it. Just before we proceed, what could be your budget for this potential partnership?"
+    "check": "Return yes if the user provides a budget, otherwise say no",
+    "error": "Create a casual response and ask the user for their approximate budget again.",
+    "next": "Say: Makes sense. And let's assume everything goes as planned, in terms of timeline, when would you like to get things set up?"
   },
   {
     "id": 5,
-    "check": "Return yes if the user provides a budget, otherwise no",
-    "error": "Could you please share your budget? It will help us tailor the service to your needs.",
-    "next": "Say: Thanks for sharing! Assuming everything goes smoothly, when would you like to get started?"
+    "check": "Return yes if the user provides a timeline, otherwise say no",
+    "error": "Create a casual response and ask the user for their expected timeline again.",
+    "next": "Say: Alright, {{13.1}}, it sounds like our solutions could be of great value to {{13.7}}. I'd love to set you up with a complimentary consultation with one of our senior experts. What's your timezone, and what time in the next couple of days works best for you?"
   },
   {
     "id": 6,
-    "check": "Return yes if the user provides a timeline, otherwise no",
-    "error": "If everything works as planned, when do you want to kick off the project?",
-    "next": "Say: Alright, {{13.`1`}}, it sounds like our solutions could be valuable for {{13.`7`}}. Let’s set you up with a complimentary consultation. What’s your time zone and availability in the next few days?"
+    "next": "Say: Give me a sec, let me check for you."
   },
   {
     "id": 7,
-    "next": "Say: Give me a second to check our schedule."
+    "next": "Say: We're good to go! Now, is there anything else you’d like to know or any concerns you want to address before we wrap up?"
   },
   {
     "id": 8,
-    "next": "Say: We're good to go! Now, is there anything else you’d like to know before we wrap up?"
+    "check": "Return yes if the user asks a question, otherwise say no",
+    "error": "Say: Listen, thank you again for taking the time, {{13.1}}! Looking forward to sharing how {{13.7}} prospered through having us as a partner. Have a wonderful day and see you soon!",
+    "next": "answer the question accordingly"
   },
   {
     "id": 9,
-    "check": "Return yes if the user asks a question, otherwise no",
-    "error": "Thank you for your time, {{13.`1`}}! Looking forward to seeing how {{13.`7`}} can benefit from us. Have a great day!",
-    "next": "Answer the question accordingly."
+    "check": "Return yes if the user asks a question, otherwise say no",
+    "error": "Say: Listen, thank you again for taking the time, {{13.1}}! Looking forward to sharing how {{13.7}} prospered through having us as a partner. Have a wonderful day and see you soon!",
+    "next": "answer the question accordingly"
   }
 ]

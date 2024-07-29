@@ -43,16 +43,17 @@ def get_prompt_index(call_id, increment=True):
     return index
 
 def generate_streaming_response(data):
+    """
+    Generator function to simulate streaming data.
+    """
     for message in data:
-        json_data = message.model_dump_json()
-        yield f"data: {json_data}\n\n"
+        yield f"data: {message['choices'][0]['delta']['content']}\n\n"
 
 def check_condition(prompt, user_response):
     if 'check' in prompt:
         condition_prompt = f"You're an AI classifier. {prompt['check']}"
         classifier_input = user_response
         
-        # Assuming a function call to OpenAI to classify
         return classify_response(condition_prompt, classifier_input)
     return True
 
@@ -68,6 +69,7 @@ def classify_response(condition_prompt, user_response):
 @custom_llm.route('/chat/completions', methods=['POST'])
 def openai_advanced_custom_llm_route():
     request_data = request.get_json()
+    streaming = request_data.get('stream', False)
     call_id = request_data['call']['id']
 
     # Initialize session if not already present
@@ -84,11 +86,6 @@ def openai_advanced_custom_llm_route():
     sessions[call_id]['email'] = request_data.get('email', '')
     sessions[call_id]['company_name'] = customer_data.get('company_name', '')
 
-    # Set initial values
-    last_assistant_message = ''
-    if 'messages' in request_data and len(request_data['messages']) >= 2:
-        last_assistant_message = request_data['messages'][-2]
-
     last_message = request_data['messages'][-1]
     prompt_index = get_prompt_index(call_id, False)
     pathway_prompt = prompt_messages[prompt_index]
@@ -99,10 +96,7 @@ def openai_advanced_custom_llm_route():
                                           .replace('{{13.`7`}}', sessions[call_id]['company_name'])
 
     if check_condition(pathway_prompt, last_message['content']):
-        if last_assistant_message:
-            logger.info(f"Last Assistant Message: {last_assistant_message['content']}")
-
-        # Update request_data with the next prompt
+        # Create the modified messages for the model
         modified_messages = [{
             "role": "system",
             "content": next_prompt
@@ -117,14 +111,17 @@ def openai_advanced_custom_llm_route():
         del request_data['phoneNumber']
         del request_data['customer']
 
-        chat_completion = client.chat.completions.create(**request_data)
-        response = chat_completion.model_dump_json()
-        
-        # Logging the response for debugging
-        logger.info(f"Chat Completion Response: {response}")
+        if streaming:
+            # Handle streaming response
+            chat_completion_stream = client.chat.completions.create(**request_data)
 
-        # Return the response
-        return Response(response, content_type='application/json')
+            return Response(generate_streaming_response(chat_completion_stream), content_type='text/event-stream')
+        else:
+            # Handle non-streaming response
+            chat_completion = client.chat.completions.create(**request_data)
+            response = chat_completion.choices[0].message.content  # Adjusted to access content directly
+
+            return jsonify({'content': response})
     else:
         next_prompt = pathway_prompt.get('error', 'Sorry, I didn’t quite catch that. Could you repeat?')
 
@@ -142,12 +139,16 @@ def openai_advanced_custom_llm_route():
         del request_data['phoneNumber']
         del request_data['customer']
 
-        chat_completion = client.chat.completions.create(**request_data)
-        response = chat_completion.model_dump_json()
-        
-        logger.info(f"Error Response: {response}")
+        if streaming:
+            # Handle error streaming response
+            chat_completion_stream = client.chat.completions.create(**request_data)
 
-        return Response(response, content_type='application/json')
+            return Response(generate_streaming_response(chat_completion_stream), content_type='text/event-stream')
+        else:
+            chat_completion = client.chat.completions.create(**request_data)
+            error_response = chat_completion.choices[0].message.content
+            
+            return jsonify({'error': error_response})
 
 app.register_blueprint(custom_llm)
 
